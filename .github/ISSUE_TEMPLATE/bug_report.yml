@@ -1,0 +1,42 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Terraform Configuration
+      description: Minimal example to reproduce (remove any secrets)
+      render: hcl
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Error Output
+      render: shell
+
+  - type: input
+    id: terraform_version
+    attributes:
+      label: Terraform Version
+      placeholder: "1.9.0"
+    validations:
+      required: true
+
+  - type: input
+    id: provider_version
+    attributes:
+      label: VNG Cloud Provider Version
+      placeholder: "1.2.7"
+    validations:
+      required: true
