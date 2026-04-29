@@ -2,13 +2,29 @@ locals {
   expanded_servers = flatten([
     for server_name, config in var.servers.server_configs : [
       for i in range(config.count) : {
-        key            = "${server_name}-${i}"
-        name           = "${server_name}-${i}"
-        flavor_id      = config.flavor_id
-        root_disk_size = config.root_disk_size
-        security_group = config.security_group
-        floating       = config.floating
-        data_disk_size = config.data_disk_size
+        key  = "${server_name}-${i}"
+        name = "${server_name}-${i}"
+
+        flavor_id = try(
+          config.overrides[tostring(i)].flavor_id != null ? config.overrides[tostring(i)].flavor_id : config.flavor_id,
+          config.flavor_id
+        )
+        root_disk_size = try(
+          config.overrides[tostring(i)].root_disk_size != null ? config.overrides[tostring(i)].root_disk_size : config.root_disk_size,
+          config.root_disk_size
+        )
+        security_group = try(
+          config.overrides[tostring(i)].security_group != null ? config.overrides[tostring(i)].security_group : config.security_group,
+          config.security_group
+        )
+        floating = try(
+          config.overrides[tostring(i)].floating != null ? config.overrides[tostring(i)].floating : config.floating,
+          config.floating
+        )
+        data_disk_size = try(
+          config.overrides[tostring(i)].data_disk_size != null ? config.overrides[tostring(i)].data_disk_size : config.data_disk_size,
+          config.data_disk_size
+        )
       }
     ]
   ])

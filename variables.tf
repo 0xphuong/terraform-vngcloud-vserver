@@ -46,6 +46,13 @@ variable "servers" {
       security_group = list(string)
       floating       = optional(bool, false)
       data_disk_size = optional(number, 0)
+      overrides      = optional(map(object({
+        flavor_id      = optional(string)
+        root_disk_size = optional(number)
+        security_group = optional(list(string))
+        floating       = optional(bool)
+        data_disk_size = optional(number)
+      })), {})
     }))
   })
 

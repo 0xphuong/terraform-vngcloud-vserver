@@ -1,5 +1,5 @@
 module "vserver" {
-  source = "github.com/binhphuongit/terraform-vngcloud-vserver?ref=v1.0.0"
+  source = "github.com/0xphuong/terraform-vngcloud-vserver?ref=v1.1.0"
 
   project_id = var.project_id
 

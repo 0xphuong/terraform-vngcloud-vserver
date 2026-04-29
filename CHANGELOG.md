@@ -7,6 +7,18 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-04-29
+
+### Added
+- `overrides` field in `server_configs` — per-node config overrides using node index as key (e.g. `"0"`, `"1"`)
+- Supported override fields: `flavor_id`, `root_disk_size`, `security_group`, `floating`, `data_disk_size`
+- `locals` uses `try()` + null-check pattern to merge overrides with group defaults
+- 5 documented use cases: identical nodes, master/worker, single-field override, multi-node override, floating IP override
+- Examples: source URLs updated from `binhphuongit` → `0xphuong`, ref bumped to `v1.1.0`
+
+### Changed
+- `server_configs` object: `overrides` added as `optional(map(object(...)), {})` — fully backward compatible
+
 ## [1.0.0] - 2026-04-26
 
 ### Added
