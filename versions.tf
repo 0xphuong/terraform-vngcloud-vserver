@@ -4,7 +4,7 @@ terraform {
   required_providers {
     vngcloud = {
       source  = "vngcloud/vngcloud"
-      version = ">= 1.2.7"
+      version = ">= 1.3.11"
     }
     cloudinit = {
       source  = "hashicorp/cloudinit"

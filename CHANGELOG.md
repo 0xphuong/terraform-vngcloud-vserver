@@ -7,6 +7,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-04-29
+
+### Added
+- `zone_id` field in `server_configs` (Optional) — default zone for all nodes in a group
+- `zone_id` field in `overrides` (Optional) — override zone per individual node
+- Use case 6: spread nodes across zones via `zone_id` override
+
+### Changed
+- Provider version constraint bumped: `>= 1.2.7` → `>= 1.3.11`
+- Examples: ref bumped to `v1.2.0`
+
 ## [1.1.0] - 2026-04-29
 
 ### Added

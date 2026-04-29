@@ -1,5 +1,5 @@
 module "vserver" {
-  source = "github.com/0xphuong/terraform-vngcloud-vserver?ref=v1.1.0"
+  source = "github.com/0xphuong/terraform-vngcloud-vserver?ref=v1.2.0"
 
   project_id              = var.project_id
   user_data_base64_encode = false
@@ -23,8 +23,8 @@ module "vserver" {
     server_configs = {
 
       # ──────────────────────────────────────────────────────────────
-      # Use case 1: All nodes identical (no overrides)
-      # app-0, app-1, app-2 → same flavor + disk
+      # Use case 1: All nodes identical, same zone (no overrides)
+      # app-0, app-1, app-2 → same flavor + disk + zone
       # ──────────────────────────────────────────────────────────────
       app = {
         count          = 3
@@ -33,6 +33,7 @@ module "vserver" {
         data_disk_size = 100
         security_group = [var.app_sg_id]
         floating       = false
+        zone_id        = "HCM03-1A"
       }
 
       # ──────────────────────────────────────────────────────────────
@@ -63,8 +64,26 @@ module "vserver" {
         data_disk_size = 200
         security_group = [var.db_sg_id]
         floating       = false
+        zone_id        = "HCM03-1A"
         overrides = {
           "0" = { data_disk_size = 500 }
+        }
+      }
+
+      # ──────────────────────────────────────────────────────────────
+      # Use case 6: Override zone_id per node (spread across zones)
+      # redis-0 → HCM03-1A, redis-1 → HCM03-1B, redis-2 → HCM03-1A
+      # ──────────────────────────────────────────────────────────────
+      redis = {
+        count          = 3
+        flavor_id      = var.flavor_2cpu_4gb
+        root_disk_size = 20
+        data_disk_size = 50
+        security_group = [var.db_sg_id]
+        floating       = false
+        zone_id        = "HCM03-1A"   # default zone
+        overrides = {
+          "1" = { zone_id = "HCM03-1B" }  # redis-1 sang zone B
         }
       }
 

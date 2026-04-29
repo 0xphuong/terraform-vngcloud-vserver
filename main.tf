@@ -25,6 +25,10 @@ locals {
           config.overrides[tostring(i)].data_disk_size != null ? config.overrides[tostring(i)].data_disk_size : config.data_disk_size,
           config.data_disk_size
         )
+        zone_id = try(
+          config.overrides[tostring(i)].zone_id != null ? config.overrides[tostring(i)].zone_id : config.zone_id,
+          config.zone_id
+        )
       }
     ]
   ])
@@ -56,6 +60,9 @@ resource "vngcloud_vserver_server" "this" {
   server_group_id         = var.servers.server_group_id
   user_data_base64_encode = var.user_data_base64_encode
   user_data               = data.cloudinit_config.this.rendered
+
+  # Optional
+  zone_id = each.value.zone_id != null ? each.value.zone_id : null
 
   lifecycle {
     create_before_destroy = true

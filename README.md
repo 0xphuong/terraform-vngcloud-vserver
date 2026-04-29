@@ -180,20 +180,40 @@ bastion = {
 }
 ```
 
+### Use case 6 — Override zone_id per node (spread across zones)
+
+```hcl
+redis = {
+  count          = 3
+  flavor_id      = "flv-2cpu-4gb"
+  root_disk_size = 20
+  data_disk_size = 50
+  security_group = ["sg-db"]
+  floating       = false
+  zone_id        = "HCM03-1A"   # default zone
+  overrides = {
+    "1" = { zone_id = "HCM03-1B" }  # redis-1 sang zone B
+  }
+  # redis-0 → HCM03-1A
+  # redis-1 → HCM03-1B
+  # redis-2 → HCM03-1A
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | terraform | >= 1.3.0 |
-| vngcloud | >= 1.2.7 |
+| vngcloud | >= 1.3.11 |
 | cloudinit | >= 2.3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| vngcloud | >= 1.2.7 |
+| vngcloud | >= 1.3.11 |
 | cloudinit | >= 2.3.0 |
 
 ## Resources
@@ -246,6 +266,7 @@ bastion = {
 | `security_group` | `list(string)` | — | **yes** | Default security group IDs |
 | `floating` | `bool` | `false` | no | Default: attach floating IP |
 | `data_disk_size` | `number` | `0` | no | Default data disk size in GB (0 = no disk) |
+| `zone_id` | `string` | `null` | no | Default zone for all nodes in group (e.g. `HCM03-1A`) |
 | `overrides` | `map(object)` | `{}` | no | Per-node config overrides, key = node index as string |
 
 ### `overrides` map value (all fields optional)
@@ -257,6 +278,7 @@ bastion = {
 | `security_group` | `list(string)` | Override security groups for this node |
 | `floating` | `bool` | Override floating IP for this node |
 | `data_disk_size` | `number` | Override data disk size for this node |
+| `zone_id` | `string` | Override zone for this node |
 
 ## Outputs
 
