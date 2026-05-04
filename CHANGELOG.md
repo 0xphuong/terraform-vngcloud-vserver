@@ -7,6 +7,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-04-29
+
+### Added
+- `enabled` field in `server_configs` — `optional(bool, true)`. Set `false` to destroy all servers in a group without removing the config block
+- Validation updated: `count >= 1` only enforced when `enabled = true`
+- Use case 6: disable/enable a server group with `enabled = false/true`
+
 ## [1.2.0] - 2026-04-29
 
 ### Added

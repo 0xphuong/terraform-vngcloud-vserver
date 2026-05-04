@@ -40,6 +40,7 @@ variable "servers" {
     data_disk_type_id = optional(string, null)
     server_group_id   = optional(string, null)
     server_configs = map(object({
+      enabled        = optional(bool, true)
       count          = number
       flavor_id      = string
       root_disk_size = number
@@ -59,8 +60,8 @@ variable "servers" {
   })
 
   validation {
-    condition     = alltrue([for k, v in var.servers.server_configs : v.count > 0])
-    error_message = "Each server_config must have count >= 1."
+    condition     = alltrue([for k, v in var.servers.server_configs : v.enabled ? v.count > 0 : true])
+    error_message = "Each enabled server_config must have count >= 1."
   }
   validation {
     condition     = alltrue([for k, v in var.servers.server_configs : v.root_disk_size >= 20])

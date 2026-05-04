@@ -180,7 +180,21 @@ bastion = {
 }
 ```
 
-### Use case 6 — Override zone_id per node (spread across zones)
+### Use case 6 — Tắt/bật group không xoá config (`enabled`)
+
+```hcl
+mongodb = {
+  enabled        = false   # destroy tất cả mongodb nodes, giữ nguyên config
+  count          = 3
+  flavor_id      = "flv-4cpu-8gb"
+  root_disk_size = 40
+  data_disk_size = 200
+  security_group = ["sg-db"]
+}
+# Bật lại: đổi enabled = true, terraform apply
+```
+
+### Use case 7 — Override zone_id per node (spread across zones)
 
 ```hcl
 redis = {
@@ -260,6 +274,7 @@ redis = {
 
 | Field | Type | Default | Required | Description |
 |-------|------|---------|----------|-------------|
+| `enabled` | `bool` | `true` | no | Set `false` to destroy all servers in this group without removing the config block |
 | `count` | `number` | — | **yes** | Number of servers in group |
 | `flavor_id` | `string` | — | **yes** | Default instance flavor (CPU/RAM) |
 | `root_disk_size` | `number` | — | **yes** | Default root disk size in GB (min 20) |

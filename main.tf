@@ -1,6 +1,6 @@
 locals {
   expanded_servers = flatten([
-    for server_name, config in var.servers.server_configs : [
+    for server_name, config in var.servers.server_configs : config.enabled ? [
       for i in range(config.count) : {
         key  = "${server_name}-${i}"
         name = "${server_name}-${i}"
@@ -30,7 +30,7 @@ locals {
           config.zone_id
         )
       }
-    ]
+    ] : []
   ])
 
   server_map = { for s in local.expanded_servers : s.key => s }
