@@ -18,6 +18,9 @@ runcmd:
   - firewall-cmd --add-port ${ssh_port}/tcp --permanent
 power_state:
   mode: reboot
+  message: "Rebooting after cloud-init"
+  timeout: 60
+  condition: true
 write_files:
   - content: |
       #!/bin/bash
