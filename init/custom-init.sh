@@ -12,7 +12,8 @@ trap 'echo "[$(date +%Y-%m-%d %H:%M:%S)] ERROR: Failed at line $LINENO (exit cod
 
 # Update systemd-resolved
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] INFO: Update systemd-resolved"
-sudo sed -i '/^#DNS=/c\DNS=8.8.8.8 1.1.1.1' /etc/systemd/resolved.conf
+# sudo sed -i '/^#DNS=/c\DNS=8.8.8.8 1.1.1.1' /etc/systemd/resolved.conf
+sudo sed -i 's/^#*DNS=.*/DNS=8.8.8.8 1.1.1.1/' /etc/systemd/resolved.conf
 sudo systemctl restart systemd-resolved
 
 # Updating apt package index
@@ -28,7 +29,7 @@ sudo apt-get install --yes --no-install-recommends \
 
 # Remove old Docker packages
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] INFO: Removing old Docker packages"
-sudo apt remove -y $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
+sudo apt-get remove --yes docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc 2>/dev/null || true
 
 
 # Add Docker's official GPG key
