@@ -281,6 +281,7 @@ redis = {
 | `security_group` | `list(string)` | — | **yes** | Default security group IDs |
 | `floating` | `bool` | `false` | no | Default: attach floating IP |
 | `data_disk_size` | `number` | `0` | no | Default data disk size in GB (0 = no disk) |
+| `data_disk_type_id` | `string` | `null` | no | Override data disk type for this group; falls back to `servers.data_disk_type_id` |
 | `zone_id` | `string` | `null` | no | Default zone for all nodes in group (e.g. `HCM03-1A`) |
 | `overrides` | `map(object)` | `{}` | no | Per-node config overrides, key = node index as string |
 
@@ -293,6 +294,7 @@ redis = {
 | `security_group` | `list(string)` | Override security groups for this node |
 | `floating` | `bool` | Override floating IP for this node |
 | `data_disk_size` | `number` | Override data disk size for this node |
+| `data_disk_type_id` | `string` | Override data disk type for this node |
 | `zone_id` | `string` | Override zone for this node |
 
 ## Outputs

@@ -7,6 +7,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-07-02
+
+### Added
+- `data_disk_type_id` field in `server_configs` (Optional) — override data disk type per group; falls back to `servers.data_disk_type_id`
+- `data_disk_type_id` field in `overrides` (Optional) — override data disk type per individual node
+- Resolution order: node override → group override → shared `servers.data_disk_type_id`
+
 ## [1.3.0] - 2026-04-29
 
 ### Added

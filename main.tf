@@ -29,6 +29,12 @@ locals {
           config.overrides[tostring(i)].zone_id != null ? config.overrides[tostring(i)].zone_id : config.zone_id,
           config.zone_id
         )
+        data_disk_type_id = try(
+          config.overrides[tostring(i)].data_disk_type_id != null ? config.overrides[tostring(i)].data_disk_type_id : (
+            config.data_disk_type_id != null ? config.data_disk_type_id : var.servers.data_disk_type_id
+          ),
+          config.data_disk_type_id != null ? config.data_disk_type_id : var.servers.data_disk_type_id
+        )
       }
     ] : []
   ])
@@ -75,7 +81,7 @@ resource "vngcloud_vserver_volume" "this" {
   project_id     = var.project_id
   name           = "data-${each.value.name}"
   size           = each.value.data_disk_size
-  volume_type_id = var.servers.data_disk_type_id
+  volume_type_id = each.value.data_disk_type_id
 
   lifecycle {
     create_before_destroy = true

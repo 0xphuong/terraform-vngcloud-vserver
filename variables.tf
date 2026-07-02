@@ -40,21 +40,23 @@ variable "servers" {
     data_disk_type_id = optional(string, null)
     server_group_id   = optional(string, null)
     server_configs = map(object({
-      enabled        = optional(bool, true)
-      count          = number
-      flavor_id      = string
-      root_disk_size = number
-      security_group = list(string)
-      floating       = optional(bool, false)
-      data_disk_size = optional(number, 0)
-      zone_id        = optional(string)
-      overrides      = optional(map(object({
-        flavor_id      = optional(string)
-        root_disk_size = optional(number)
-        security_group = optional(list(string))
-        floating       = optional(bool)
-        data_disk_size = optional(number)
-        zone_id        = optional(string)
+      enabled           = optional(bool, true)
+      count             = number
+      flavor_id         = string
+      root_disk_size    = number
+      security_group    = list(string)
+      floating          = optional(bool, false)
+      data_disk_size    = optional(number, 0)
+      data_disk_type_id = optional(string)
+      zone_id           = optional(string)
+      overrides         = optional(map(object({
+        flavor_id         = optional(string)
+        root_disk_size    = optional(number)
+        security_group    = optional(list(string))
+        floating          = optional(bool)
+        data_disk_size    = optional(number)
+        data_disk_type_id = optional(string)
+        zone_id           = optional(string)
       })), {})
     }))
   })
