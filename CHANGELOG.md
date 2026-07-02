@@ -7,6 +7,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-07-02
+
+### Added
+- `root_disk_type_id` field in `server_configs` (Optional) — override root disk type per group; falls back to `servers.root_disk_type_id`
+- `root_disk_type_id` field in `overrides` (Optional) — override root disk type per individual node
+- `image_id` field in `server_configs` (Optional) — override OS image per group; falls back to `servers.image_id`
+- `image_id` field in `overrides` (Optional) — override OS image per individual node
+- Resolution order for all three disk/image fields: node override → group override → shared `servers.*`
+
 ## [1.4.0] - 2026-07-02
 
 ### Added

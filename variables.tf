@@ -44,6 +44,8 @@ variable "servers" {
       count             = number
       flavor_id         = string
       root_disk_size    = number
+      root_disk_type_id = optional(string)
+      image_id          = optional(string)
       security_group    = list(string)
       floating          = optional(bool, false)
       data_disk_size    = optional(number, 0)
@@ -52,6 +54,8 @@ variable "servers" {
       overrides         = optional(map(object({
         flavor_id         = optional(string)
         root_disk_size    = optional(number)
+        root_disk_type_id = optional(string)
+        image_id          = optional(string)
         security_group    = optional(list(string))
         floating          = optional(bool)
         data_disk_size    = optional(number)

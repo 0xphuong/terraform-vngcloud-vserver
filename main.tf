@@ -13,6 +13,18 @@ locals {
           config.overrides[tostring(i)].root_disk_size != null ? config.overrides[tostring(i)].root_disk_size : config.root_disk_size,
           config.root_disk_size
         )
+        root_disk_type_id = try(
+          config.overrides[tostring(i)].root_disk_type_id != null ? config.overrides[tostring(i)].root_disk_type_id : (
+            config.root_disk_type_id != null ? config.root_disk_type_id : var.servers.root_disk_type_id
+          ),
+          config.root_disk_type_id != null ? config.root_disk_type_id : var.servers.root_disk_type_id
+        )
+        image_id = try(
+          config.overrides[tostring(i)].image_id != null ? config.overrides[tostring(i)].image_id : (
+            config.image_id != null ? config.image_id : var.servers.image_id
+          ),
+          config.image_id != null ? config.image_id : var.servers.image_id
+        )
         security_group = try(
           config.overrides[tostring(i)].security_group != null ? config.overrides[tostring(i)].security_group : config.security_group,
           config.security_group
@@ -54,10 +66,10 @@ resource "vngcloud_vserver_server" "this" {
   name                    = each.value.name
   encryption_volume       = var.servers.encryption_volume
   flavor_id               = each.value.flavor_id
-  image_id                = var.servers.image_id
+  image_id                = each.value.image_id
   network_id              = var.servers.network_id
   root_disk_size          = each.value.root_disk_size
-  root_disk_type_id       = var.servers.root_disk_type_id
+  root_disk_type_id       = each.value.root_disk_type_id
   security_group          = each.value.security_group
   subnet_id               = var.servers.subnet_id
   attach_floating         = each.value.floating

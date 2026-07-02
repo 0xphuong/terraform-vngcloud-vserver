@@ -282,6 +282,8 @@ redis = {
 | `floating` | `bool` | `false` | no | Default: attach floating IP |
 | `data_disk_size` | `number` | `0` | no | Default data disk size in GB (0 = no disk) |
 | `data_disk_type_id` | `string` | `null` | no | Override data disk type for this group; falls back to `servers.data_disk_type_id` |
+| `root_disk_type_id` | `string` | `null` | no | Override root disk type for this group; falls back to `servers.root_disk_type_id` |
+| `image_id` | `string` | `null` | no | Override OS image for this group; falls back to `servers.image_id` |
 | `zone_id` | `string` | `null` | no | Default zone for all nodes in group (e.g. `HCM03-1A`) |
 | `overrides` | `map(object)` | `{}` | no | Per-node config overrides, key = node index as string |
 
@@ -291,6 +293,8 @@ redis = {
 |-------|------|-------------|
 | `flavor_id` | `string` | Override flavor for this node |
 | `root_disk_size` | `number` | Override root disk size for this node |
+| `root_disk_type_id` | `string` | Override root disk type for this node |
+| `image_id` | `string` | Override OS image for this node |
 | `security_group` | `list(string)` | Override security groups for this node |
 | `floating` | `bool` | Override floating IP for this node |
 | `data_disk_size` | `number` | Override data disk size for this node |
